@@ -1,39 +1,46 @@
-fib1 = 1
-fib2 = 2
+from statistics import median
+
+fib1 = 0
+fib2 = 1
 N = input('колличество элементов в ряду фибоначчи: ')
 N = int(N)
 i = 0
-m = [0, 1, 1, 2]
-while i < N - 4:
-    fib_sum = fib1 + fib2
-    fib1 = fib2
-    fib2 = fib_sum
-    i = i + 1
-    if  fib2 % 2 == 0:
+m = [fib1, fib2]
+modified = [fib1, fib2]
+while i < N - 2: # (N - 2) - потомуто у нас в списке уже имеется 2 элемента
+    fib_sum = fib1 + fib2 #-->   (                     )
+    fib1 = fib2           #-->  (подсчет числа фибоначчи)
+    fib2 = fib_sum        #-->   (                     )    
+    i = i + 1   
+    m += [fib2]
+    if  fib2 % 2 == 0:    # проверка на четность 
         fib2 = fib2 * 2
-        m += [fib2]
+        modified += [fib2]       # добавление в список
     else:
         fib2 = fib2 ** 2
-        m += [fib2]
-    fib2 = fib_sum
-if N % 2 == 0:
-    N = N/2
-    N =int(N)
-    s = m[N:]
-else:
-    N = (N + 1)/2
-    N =int(N)
-    s = m[N:]
+        modified += [fib2]
+    fib2 = fib_sum 
 
-print("количество элементов > медианного значения:")  
-print(len(s))
+sort = sorted(modified)   #отсортировал список по возрастанию 
+med = median(sort) # нахождение медианного значения
 
-print("длина:")
-print(len(m))
+rem = [] # создал список
+for it in  modified: # прохожусь по каждому элементу
+    if  it < med:
+        rem = []   
+    else:
+      rem.append(it) #добавление в конец списка
+    if it == med:
+        rem.remove(it) # удалил элемент равный медианному значению
+sort1 = sorted(rem) #отсортировал список по возрастанию 
 
-print("минимальный элемент:")
-print(min(m))
+length = len(sort1)
+a = len(modified) # длина списка
 
-print("максимальный элемент:")
-print(max(m))
-print(str(m))
+print("список до N",m)
+print("преобразованный список:",modified)
+print("медианное значени:",med)
+print("длина:", a)
+print("минимальный элемент:", min(modified))
+print("максимальный элемент:", max(modified))
+print("количество элементов > медианного значения:", length)
