@@ -40,7 +40,7 @@ a = len(modified) # длина списка
 print("список до N",m)
 print("преобразованный список:",modified)
 print("медианное значени:",med)
-print("длина:", a)
 print("минимальный элемент:", min(modified))
 print("максимальный элемент:", max(modified))
+print("длина:", a)
 print("количество элементов > медианного значения:", length)
